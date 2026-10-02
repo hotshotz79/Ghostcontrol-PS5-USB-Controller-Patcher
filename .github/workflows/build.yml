@@ -1,0 +1,39 @@
+name: Build PS5 Payload
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang lld make
+
+      - name: Checkout PS5 Payload SDK
+        uses: actions/checkout@v4
+        with:
+          repository: ps5-payload-dev/sdk
+          submodules: recursive
+          path: ps5-payload-sdk
+
+      - name: Build Project
+        run: |
+          export PS5_PAYLOAD_SDK=$GITHUB_WORKSPACE/ps5-payload-sdk
+          make clean all
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghost-control-xbox-ps5-elf
+          path: ghost-control-xbox-ps5.elf
