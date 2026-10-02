@@ -29,9 +29,9 @@ jobs:
 
       - name: Build Project
         run: |
-          export PS5_PAYLOAD_SDK=$GITHUB_WORKSPACE/ps5-payload-sdk
-          cd payload
-          make clean all
+           export PS5_PAYLOAD_SDK=$GITHUB_WORKSPACE/ps5-payload-sdk
+           ls -la $PS5_PAYLOAD_SDK/toolchain/  # Debug: check if files exist
+           make -C payload clean all
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
