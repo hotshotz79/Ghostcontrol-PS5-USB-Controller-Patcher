@@ -30,6 +30,7 @@ jobs:
       - name: Build Project
         run: |
           export PS5_PAYLOAD_SDK=$GITHUB_WORKSPACE/ps5-payload-sdk
+          cd payload
           make clean all
 
       - name: Upload Build Artifact
