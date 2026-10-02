@@ -23,7 +23,7 @@ jobs:
       - name: Checkout PS5 Payload SDK
         uses: actions/checkout@v4
         with:
-          repository: ps5-payload-dev/sdk
+          repository: hotshotz79/PS5_PayloadSDK
           submodules: recursive
           path: ps5-payload-sdk
 
